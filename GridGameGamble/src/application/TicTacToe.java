@@ -28,7 +28,7 @@ public class TicTacToe extends Grid{
 		Button b9 = new Button("");
 
 		b1.setMinSize(100, 100);
-		b2.setMinSize(100, 100);
+		b2.setMinSize(100, 100); 
 		b3.setMinSize(100, 100);
 		b4.setMinSize(100, 100);
 		b5.setMinSize(100, 100);
@@ -148,9 +148,22 @@ public class TicTacToe extends Grid{
 	}
 
 
-	public void hasWon(){
-		if(buttonStatus[0] == 1 && buttonStatus[1] == 1 && buttonStatus[2] == 1){
-			System.out.println("YOU WIN");
+	public void hasWon(){	//This if statement includes all 8 winning conditions in Tic Tac Toe
+		if(buttonStatus[0] == buttonStatus[1] && buttonStatus[1] == buttonStatus[2] && buttonStatus[0] != 0
+				|| buttonStatus[3] == buttonStatus[4] && buttonStatus[4] == buttonStatus[5] && buttonStatus[3] != 0
+				|| buttonStatus[6] == buttonStatus[7] && buttonStatus[7] == buttonStatus[8] && buttonStatus[6] != 0
+				|| buttonStatus[0] == buttonStatus[3] && buttonStatus[3] == buttonStatus[6] && buttonStatus[0] != 0
+				|| buttonStatus[1] == buttonStatus[4] && buttonStatus[4] == buttonStatus[7] && buttonStatus[1] != 0
+				|| buttonStatus[2] == buttonStatus[5] && buttonStatus[5] == buttonStatus[8] && buttonStatus[2] != 0
+				|| buttonStatus[0] == buttonStatus[4] && buttonStatus[4] == buttonStatus[8] && buttonStatus[0] != 0
+				|| buttonStatus[2] == buttonStatus[4] && buttonStatus[4] == buttonStatus[6] && buttonStatus[2] != 0) {
+
+			if(turnCount % 2 == 0){
+				System.out.println("O Wins");
+			}
+			else{
+				System.out.println("X Wins");
+			}
 		}
 
 	}
