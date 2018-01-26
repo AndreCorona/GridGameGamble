@@ -60,71 +60,74 @@ public class TicTacToe extends Grid{
 		b8.setStyle("-fx-font: 48 Arial");
 		b9.setStyle("-fx-font: 48 Arial");
 
-		Scene scene1 = new Scene(grid);
+		Scene scene1 = new Scene(grid, 300, 400);
 		Stage stage = new Stage();
 		stage.setScene(scene1);
 		stage.show();
 
-
+		Label turn = new Label("X's turn");
+		turn.setStyle("-fx-font: 20 Arial");
+		turn.setMinSize(100, 100);
+		grid.add(turn, 0, 4);
+		
 		b1.setOnAction(new EventHandler<ActionEvent>() {
 			@Override public void handle(ActionEvent e) {
-				clickButton(b1, 0);
+				clickButton(b1, 0, turn);
 			}
 		});
 
 		b2.setOnAction(new EventHandler<ActionEvent>() {
 			@Override public void handle(ActionEvent e) {
-				clickButton(b2, 1);
+				clickButton(b2, 1, turn);
 			}
 		});
 
 		b3.setOnAction(new EventHandler<ActionEvent>() {
 			@Override public void handle(ActionEvent e) {
-				clickButton(b3, 2);
+				clickButton(b3, 2, turn);
 			}
 		});
 
 		b4.setOnAction(new EventHandler<ActionEvent>() {
 			@Override public void handle(ActionEvent e) {
-				clickButton(b4, 3);
+				clickButton(b4, 3, turn);
 			}
 		});
 
 		b5.setOnAction(new EventHandler<ActionEvent>() {
 			@Override public void handle(ActionEvent e) {
-				clickButton(b5, 4);
+				clickButton(b5, 4, turn);
 			}
 		});
 
 		b6.setOnAction(new EventHandler<ActionEvent>() {
 			@Override public void handle(ActionEvent e) {
-				clickButton(b6, 5);
+				clickButton(b6, 5, turn);
 			}
 		});
 
 		b7.setOnAction(new EventHandler<ActionEvent>() {
 			@Override public void handle(ActionEvent e) {
-				clickButton(b7, 6);
+				clickButton(b7, 6, turn);
 			}
 		});
 
 		b8.setOnAction(new EventHandler<ActionEvent>() {
 			@Override public void handle(ActionEvent e) {
-				clickButton(b8, 7);
+				clickButton(b8, 7, turn);
 			}
 		});
 
 		b9.setOnAction(new EventHandler<ActionEvent>() {
 			@Override public void handle(ActionEvent e) {
-				clickButton(b9, 8);		
+				clickButton(b9, 8, turn);		
 			}
 		});
-
 
 	}
 
 	@Override
-	public void clickButton(Button b, int butNum) {
+	public void clickButton(Button b, int butNum, Label turn) {
 		Button but = b;
 
 		if (clicked[butNum] == false) {
@@ -132,16 +135,17 @@ public class TicTacToe extends Grid{
 				b.setTextFill(Color.RED);
 				b.setText("x");
 				buttonStatus[butNum] = 1;
+				turn.setText("O's Turn");
 			}
 			else {
 				b.setTextFill(Color.BLUE);
 				b.setText("o");
 				buttonStatus[butNum] = 2;
+				turn.setText("X's Turn");
 			}
 			turnCount++;
 			clicked[butNum] = true;
-			hasWon();
-			
+			hasWon();	
 		}
 
 
