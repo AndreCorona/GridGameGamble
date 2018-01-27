@@ -18,6 +18,6 @@ public abstract class Grid {
 	
 	}
 	
-	public abstract void clickButton(Button b, int butNum, Label turn);
+	public abstract void clickButton(Button b, int butNum, Label turn, Label win);
 	
 }
