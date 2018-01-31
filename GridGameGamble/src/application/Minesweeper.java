@@ -109,25 +109,29 @@ public class Minesweeper extends Cell{
 			}
 		}
 	}
-
 	
-	EventHandler<ActionEvent> buttonHandler = new EventHandler<ActionEvent>(){ // source
-		@Override
-		public void handle(ActionEvent event){
-			for(int i = 0; i < Cell.length; i++){
-				for(int j = 0; j < Cell[i].length; j++){
-					if(event.getSource().equals(Cell[i][j])){
-						if(counts[i][j] == MINE){
-							Cell[i][j].setText("X");
-						}
-					}else{
-						Cell[i][j].setText(counts[i][j] + ""); // switch to String for the button
-						Cell[i][j].setDisable(false); // disable to click again
+	public void lostGame(){
+		for(int x = 0; x < Cell.length; x++){
+			for(int y = 0; y < Cell[x].length; y++){
+				if(Cell[x][y].disableProperty().bind(condition);)
+			}
+		}
+	}
+	public void actionPerformed(ActionEvent event){ // source
+		for(int i = 0; i < Cell.length; i++){
+			for(int j = 0; j < Cell[i].length; j++){
+				if(event.getSource().equals(Cell[i][j])){
+					if(counts[i][j] == MINE){
+						Cell[i][j].setText("X");
 					}
+				}else{
+					Cell[i][j].setText(counts[i][j] + ""); // switch to String for the button
+					Cell[i][j].setDisable(false); // disable to click again
 				}
 			}
 		}
-	};
+	}
+	
 	public static void main(String[] arg){
 		// empty
 	}
