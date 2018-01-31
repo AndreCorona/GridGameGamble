@@ -35,7 +35,11 @@ public class Minesweeper extends Cell{
 			for(int j = 0; j < Cell.length; j++){
 				Cell[i][j] = new Button(); //create button
 				Cell[i][j].setMinSize(w, w); //default size of the button
-				//Cell[i][j].setOnAction((EventHandler<ActionEvent>) this);
+				Cell[i][j].setOnAction(new EventHandler<ActionEvent>() {
+					@Override public void handle(ActionEvent e) {
+						setMouseEvents(e);
+					}
+				});
 				grid.add(Cell[i][j], i, j); //add button
 			}
 		}
@@ -200,7 +204,13 @@ public class Minesweeper extends Cell{
 		for(int x = 0; x < Cell.length; x++){
 			for(int y = 0; y < Cell[x].length; y++){
 				if(!Cell[x][y].isDisable()){
-					//
+					if(counts[x][y] != MINE){
+						Cell[x][y].setText(counts[x][y] + "");
+						Cell[x][y].setDisable(true);
+					}else{
+						Cell[x][y].setText("X");
+						Cell[x][y].setDisable(true);
+					}
 				}
 			}
 		}
@@ -228,9 +238,7 @@ public class Minesweeper extends Cell{
 				}
 			}
 		}
-		System.out.println("test");
 	}
-	
 	public static void main(String[] arg){
 		// empty
 	}
