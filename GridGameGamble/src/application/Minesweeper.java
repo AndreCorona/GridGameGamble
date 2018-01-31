@@ -20,17 +20,17 @@ public class Minesweeper extends Cell{
 	private final int w = 50;
 	// just a number code to show that there is a MINE
 	private final int MINE = 10;
-	
+
 	//Grid Buttons
 	Button[][] Cell = new Button[ROWS][COLUMNS];
 	//keep track of the mines in the grid
 	int[][] counts = new int[ROWS][COLUMNS];
-	
+
 	public Minesweeper(){
 		//GridPane lays out its children within a flexible grid of rows and columns
 		GridPane grid = new GridPane();
-		
-		
+
+
 		for(int i = 0; i < Cell.length; i++){
 			for(int j = 0; j < Cell.length; j++){
 				Cell[i][j] = new Button(); //create button
@@ -43,16 +43,16 @@ public class Minesweeper extends Cell{
 				grid.add(Cell[i][j], i, j); //add button
 			}
 		}
-		
+
 		createMines();
-		
+
 		// set up the scene and the stage
 		Scene scene1 = new Scene(grid, w * ROWS, w * COLUMNS); //500*500
 		Stage stage = new Stage();
 		stage.setScene(scene1);
 		stage.show();
 	}
-	
+
 	public void createMines(){
 		// store all the positions in an arraylist
 		ArrayList<Integer> list = new ArrayList<Integer>();
@@ -113,7 +113,7 @@ public class Minesweeper extends Cell{
 			}
 		}
 	}
-	
+
 	public void clear(ArrayList<Integer> toClear){
 		if(toClear.size() == 0){
 			return; // base case for recursion
@@ -137,7 +137,7 @@ public class Minesweeper extends Cell{
 						toClear.add(x*100 + (y-1));
 					}
 				}
-				if(x < counts.length && y > 0 && !Cell[x+1][y-1].isDisable()){ //up right
+				if(x < counts.length - 1 && y > 0 && !Cell[x+1][y-1].isDisable()){ //up right
 					Cell[x+1][y-1].setText(counts[x+1][y-1] + "");
 					Cell[x+1][y-1].setDisable(true);
 					if(counts[x+1][y-1] == 0){
@@ -151,28 +151,28 @@ public class Minesweeper extends Cell{
 						toClear.add((x-1)*100 + y);
 					}
 				}
-				if(x < counts.length && !Cell[x+1][y].isDisable()){ //right
+				if(x < counts.length - 1 && !Cell[x+1][y].isDisable()){ //right
 					Cell[x+1][y].setText(counts[x+1][y] + "");
 					Cell[x+1][y].setDisable(true);
 					if(counts[x+1][y] == 0){
 						toClear.add((x+1)*100 + y);
 					}
 				}
-				if(x > 0 && y < counts.length && !Cell[x-1][y+1].isDisable()){ //bottom right
+				if(x > 0 && y < counts.length - 1 && !Cell[x-1][y+1].isDisable()){ //bottom right
 					Cell[x-1][y+1].setText(counts[x-1][y+1] + "");
 					Cell[x-1][y+1].setDisable(true);
 					if(counts[x-1][y+1] == 0){
 						toClear.add((x-1)*100 + (y+1));
 					}
 				}
-				if(y < counts.length && !Cell[x][y+1].isDisable()){ //bottom
+				if(y < counts.length - 1 && !Cell[x][y+1].isDisable()){ //bottom
 					Cell[x][y+1].setText(counts[x][y+1] + "");
 					Cell[x][y+1].setDisable(true);
 					if(counts[x][y+1] == 0){
 						toClear.add((x)*100 + (y+1));
 					}
 				}
-				if(x < counts.length && y < counts.length && !Cell[x+1][y+1].isDisable()){ //bottom right
+				if(x < counts.length - 1 && y < counts.length - 1 && !Cell[x+1][y+1].isDisable()){ //bottom right
 					Cell[x+1][y+1].setText(counts[x+1][y+1] + "");
 					Cell[x+1][y+1].setDisable(true);
 					if(counts[x+1][y+1] == 0){
@@ -184,7 +184,7 @@ public class Minesweeper extends Cell{
 			// I know there are other methods but this is the only way I could understand...
 			clear(toClear); 
 		}
-		
+
 	}
 	public void isWon(){
 		boolean won = true;
@@ -199,7 +199,7 @@ public class Minesweeper extends Cell{
 			// add a win label
 		}
 	}
-	
+
 	public void lostGame(){
 		for(int x = 0; x < Cell.length; x++){
 			for(int y = 0; y < Cell[x].length; y++){
@@ -209,6 +209,7 @@ public class Minesweeper extends Cell{
 						Cell[x][y].setDisable(true);
 					}else{
 						Cell[x][y].setText("X");
+						Cell[x][y].setTextFill(Color.RED);
 						Cell[x][y].setDisable(true);
 					}
 				}
@@ -221,7 +222,7 @@ public class Minesweeper extends Cell{
 				if(event.getSource().equals(Cell[i][j])){
 					if(counts[i][j] == MINE){
 						Cell[i][j].setText("X");
-						// Cell[i][j].setBackground();
+						Cell[i][j].setTextFill(Color.RED);
 						lostGame();
 					}else if(counts[i][j] == 0){
 						Cell[i][j].setText(counts[i][j] + "");
