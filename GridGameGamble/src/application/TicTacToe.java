@@ -168,17 +168,20 @@ public class TicTacToe extends Grid{
 				|| buttonStatus[2] == buttonStatus[4] && buttonStatus[4] == buttonStatus[6] && buttonStatus[2] != 0) {
 
 			if(turnCount % 2 == 0){
-				win.setText("O Wins");
+				win.setText("O Wins!");
 				
 			}
 			else{
-				win.setText("X Wins");
+				win.setText("X Wins!");
 			}
 			for(int i = 0; i < clicked.length; i++) {	//Sets all buttons to "clicked" so no more moves can be made
 				clicked[i] = true;
 			}
 			
 			
+		}
+		else if(clicked[0] && clicked[1] && clicked[2] && clicked[3] && clicked[4] && clicked[5] && clicked[6] && clicked[7] && clicked[8]){
+			win.setText("It's a Tie!");
 		}
 
 	}
