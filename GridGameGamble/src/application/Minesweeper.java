@@ -13,8 +13,8 @@ public class Minesweeper {
 		
 	}
 	
-	public void create(){
-		System.out.println();
+	public void createMines(){
+		
 	}
 	public static void main(String[] arg){
 		new Minesweeper();
