@@ -110,10 +110,95 @@ public class Minesweeper extends Cell{
 		}
 	}
 	
+	public void clear(ArrayList<Integer> toClear){
+		if(toClear.size() == 0){
+			return; // base case for recursion
+		}else{
+			int x = toClear.get(0) / 100;
+			int y = toClear.get(0) % 100;
+			toClear.remove(0);
+			// clear the mines
+			if(counts[x][y] == 0){
+				if(x > 0 && y > 0){ //up left
+					Cell[x-1][y-1].setText(counts[x-1][y-1] + "");
+					Cell[x-1][y-1].setDisable(false);
+					if(counts[x-1][y-1] == 0){
+						toClear.add((x-1)*100 + (y-1));
+					}
+				}
+				if(y > 0){ //up
+					Cell[x][y-1].setText(counts[x][y-1] + "");
+					Cell[x][y-1].setDisable(false);
+					if(counts[x][y-1] == 0){
+						toClear.add(x*100 + (y-1));
+					}
+				}
+				if(x < counts.length && y > 0){ //up right
+					Cell[x+1][y-1].setText(counts[x+1][y-1] + "");
+					Cell[x+1][y-1].setDisable(false);
+					if(counts[x+1][y-1] == 0){
+						toClear.add((x+1)*100 + (y-1));
+					}
+				}
+				if(x > 0){ //left
+					Cell[x-1][y].setText(counts[x-1][y] + "");
+					Cell[x-1][y].setDisable(false);
+					if(counts[x-1][y] == 0){
+						toClear.add((x-1)*100 + y);
+					}
+				}
+				if(x < counts.length){ //right
+					Cell[x+1][y].setText(counts[x+1][y] + "");
+					Cell[x+1][y].setDisable(false);
+					if(counts[x+1][y] == 0){
+						toClear.add((x+1)*100 + y);
+					}
+				}
+				if(x > 0 && y < counts.length){ //bottom right
+					Cell[x-1][y+1].setText(counts[x-1][y+1] + "");
+					Cell[x-1][y+1].setDisable(false);
+					if(counts[x-1][y+1] == 0){
+						toClear.add((x-1)*100 + (y+1));
+					}
+				}
+				if(y < counts.length){ //bottom
+					Cell[x][y+1].setText(counts[x][y+1] + "");
+					Cell[x][y+1].setDisable(false);
+					if(counts[x][y+1] == 0){
+						toClear.add((x)*100 + (y+1));
+					}
+				}
+				if(x < counts.length && y < counts.length){ //bottom right
+					Cell[x+1][y+1].setText(counts[x+1][y+1] + "");
+					Cell[x+1][y+1].setDisable(false);
+					if(counts[x+1][y+1] == 0){
+						toClear.add((x+1)*100 + (y+1));
+					}
+				}
+			}
+			clear(toClear); // recursion; this is the only way I could understand...
+		}
+		
+	}
+	public void isWon(){
+		boolean won = true;
+		for(int x = 0; x < Cell.length; x++){
+			for(int y = 0; y < Cell[x].length; y++){
+				if(counts[x][y] == MINE && Cell[x][y].isDisabled()){
+					won = false;
+				}
+			}
+		}
+		if(won){
+			// add a win label
+		}
+	}
+	
 	public void lostGame(){
 		for(int x = 0; x < Cell.length; x++){
 			for(int y = 0; y < Cell[x].length; y++){
-				if(Cell[x][y].disableProperty().bind(condition);)
+				//if(Cell[x][y].disableProperty().bind(condition);)
+				//if
 			}
 		}
 	}
