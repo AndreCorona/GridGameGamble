@@ -17,10 +17,6 @@ public abstract class Cell {
     	button.setText(" ");
     }
 	
-	public Cell(int length, int width) {
-		
-	}
-	
     public void setMine() {
         
     }
