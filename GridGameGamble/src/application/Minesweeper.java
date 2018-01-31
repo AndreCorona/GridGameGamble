@@ -35,7 +35,7 @@ public class Minesweeper extends Cell{
 			for(int j = 0; j < Cell.length; j++){
 				Cell[i][j] = new Button(); //create button
 				Cell[i][j].setMinSize(w, w); //default size of the button
-				Cell[i][j].setOnAction((EventHandler<ActionEvent>) this);
+				//Cell[i][j].setOnAction((EventHandler<ActionEvent>) this);
 				grid.add(Cell[i][j], i, j); //add button
 			}
 		}
@@ -119,64 +119,66 @@ public class Minesweeper extends Cell{
 			toClear.remove(0);
 			// clear the mines
 			if(counts[x][y] == 0){
-				if(x > 0 && y > 0){ //up left
+				if(x > 0 && y > 0 && !Cell[x-1][y-1].isDisable()){ //up left
 					Cell[x-1][y-1].setText(counts[x-1][y-1] + "");
-					Cell[x-1][y-1].setDisable(false);
+					Cell[x-1][y-1].setDisable(true);
 					if(counts[x-1][y-1] == 0){
 						toClear.add((x-1)*100 + (y-1));
 					}
 				}
-				if(y > 0){ //up
+				if(y > 0 && !Cell[x][y-1].isDisable()){ //up
 					Cell[x][y-1].setText(counts[x][y-1] + "");
-					Cell[x][y-1].setDisable(false);
+					Cell[x][y-1].setDisable(true);
 					if(counts[x][y-1] == 0){
 						toClear.add(x*100 + (y-1));
 					}
 				}
-				if(x < counts.length && y > 0){ //up right
+				if(x < counts.length && y > 0 && !Cell[x+1][y-1].isDisable()){ //up right
 					Cell[x+1][y-1].setText(counts[x+1][y-1] + "");
-					Cell[x+1][y-1].setDisable(false);
+					Cell[x+1][y-1].setDisable(true);
 					if(counts[x+1][y-1] == 0){
 						toClear.add((x+1)*100 + (y-1));
 					}
 				}
-				if(x > 0){ //left
+				if(x > 0 && !Cell[x-1][y].isDisable()){ //left
 					Cell[x-1][y].setText(counts[x-1][y] + "");
-					Cell[x-1][y].setDisable(false);
+					Cell[x-1][y].setDisable(true);
 					if(counts[x-1][y] == 0){
 						toClear.add((x-1)*100 + y);
 					}
 				}
-				if(x < counts.length){ //right
+				if(x < counts.length && !Cell[x+1][y].isDisable()){ //right
 					Cell[x+1][y].setText(counts[x+1][y] + "");
-					Cell[x+1][y].setDisable(false);
+					Cell[x+1][y].setDisable(true);
 					if(counts[x+1][y] == 0){
 						toClear.add((x+1)*100 + y);
 					}
 				}
-				if(x > 0 && y < counts.length){ //bottom right
+				if(x > 0 && y < counts.length && !Cell[x-1][y+1].isDisable()){ //bottom right
 					Cell[x-1][y+1].setText(counts[x-1][y+1] + "");
-					Cell[x-1][y+1].setDisable(false);
+					Cell[x-1][y+1].setDisable(true);
 					if(counts[x-1][y+1] == 0){
 						toClear.add((x-1)*100 + (y+1));
 					}
 				}
-				if(y < counts.length){ //bottom
+				if(y < counts.length && !Cell[x][y+1].isDisable()){ //bottom
 					Cell[x][y+1].setText(counts[x][y+1] + "");
-					Cell[x][y+1].setDisable(false);
+					Cell[x][y+1].setDisable(true);
 					if(counts[x][y+1] == 0){
 						toClear.add((x)*100 + (y+1));
 					}
 				}
-				if(x < counts.length && y < counts.length){ //bottom right
+				if(x < counts.length && y < counts.length && !Cell[x+1][y+1].isDisable()){ //bottom right
 					Cell[x+1][y+1].setText(counts[x+1][y+1] + "");
-					Cell[x+1][y+1].setDisable(false);
+					Cell[x+1][y+1].setDisable(true);
 					if(counts[x+1][y+1] == 0){
 						toClear.add((x+1)*100 + (y+1));
 					}
 				}
 			}
-			clear(toClear); // recursion; this is the only way I could understand...
+			// recursion, similar to induction, iterate every mines
+			// I know there are other methods but this is the only way I could understand...
+			clear(toClear); 
 		}
 		
 	}
@@ -197,24 +199,36 @@ public class Minesweeper extends Cell{
 	public void lostGame(){
 		for(int x = 0; x < Cell.length; x++){
 			for(int y = 0; y < Cell[x].length; y++){
-				//if(Cell[x][y].disableProperty().bind(condition);)
-				//if
+				if(!Cell[x][y].isDisable()){
+					//
+				}
 			}
 		}
 	}
-	public void actionPerformed(ActionEvent event){ // source
+	public void setMouseEvents(ActionEvent event){ // source
 		for(int i = 0; i < Cell.length; i++){
 			for(int j = 0; j < Cell[i].length; j++){
 				if(event.getSource().equals(Cell[i][j])){
 					if(counts[i][j] == MINE){
 						Cell[i][j].setText("X");
+						// Cell[i][j].setBackground();
+						lostGame();
+					}else if(counts[i][j] == 0){
+						Cell[i][j].setText(counts[i][j] + "");
+						Cell[i][j].setDisable(true);
+						ArrayList<Integer> toClear = new ArrayList<Integer>();
+						toClear.add(i*100+j);
+						clear(toClear);
+						isWon();
+					}else{
+						Cell[i][j].setText(counts[i][j] + ""); // switch to String for the button
+						Cell[i][j].setDisable(true); // disable to click again
+						isWon();
 					}
-				}else{
-					Cell[i][j].setText(counts[i][j] + ""); // switch to String for the button
-					Cell[i][j].setDisable(false); // disable to click again
 				}
 			}
 		}
+		System.out.println("test");
 	}
 	
 	public static void main(String[] arg){
