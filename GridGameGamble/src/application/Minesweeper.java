@@ -8,6 +8,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.RowConstraints;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
@@ -15,7 +16,7 @@ public class Minesweeper {
 	// initialize the rows and columns plus the width of each square
 	private final int ROWS = 10;
 	private final int COLUMNS = 10;
-	private final int w = 20;
+	private final int w = 50;
 	
 	//Grid Buttons
 	Button[][] field = new Button[ROWS][COLUMNS];
@@ -25,27 +26,28 @@ public class Minesweeper {
 	public Minesweeper(){
 		//GridPane lays out its children within a flexible grid of rows and columns
 		GridPane grid = new GridPane();
-		grid.getColumnConstraints().add(new ColumnConstraints(100)); // column 0 is 100 wide
-	    grid.getColumnConstraints().add(new ColumnConstraints(200)); // column 1 is 200 wide
 		
 		for(int i = 0; i < field.length; i++){
 			for(int j = 0; j < field.length; j++){
-				field[i][j] = new Button();
-				grid.add(field[i][j], i, j);
+				field[i][j] = new Button(); //create button
+				field[i][j].setMinSize(w, w); //default size of the button
+				// field[i][j].setStyle("-fx-background-color: #00ff00");
+				grid.add(field[i][j], i, j); //add button
 			}
 		}
 		
 		// set up the scene and the stage
-				Scene scene1 = new Scene(grid, 300, 300);
-				Stage stage = new Stage();
-				stage.setScene(scene1);
-				stage.show();
+		Scene scene1 = new Scene(grid, w * ROWS, w * COLUMNS); //500*500
+		Stage stage = new Stage();
+		stage.setScene(scene1);
+		stage.show();
 	}
 	
 	public void createMines(){
 		
 	}
+	
 	public static void main(String[] arg){
-		new Minesweeper();
+		// empty
 	}
 }
