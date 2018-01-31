@@ -35,6 +35,7 @@ public class Minesweeper extends Cell{
 			for(int j = 0; j < Cell.length; j++){
 				Cell[i][j] = new Button(); //create button
 				Cell[i][j].setMinSize(w, w); //default size of the button
+				// set up eventhandler for every button
 				Cell[i][j].setOnAction(new EventHandler<ActionEvent>() {
 					@Override public void handle(ActionEvent e) {
 						setMouseEvents(e);
@@ -200,26 +201,34 @@ public class Minesweeper extends Cell{
 		}
 	}
 
+	// when you click on a mine, you lost the game
+	// The button freezes when the game ends
 	public void lostGame(){
 		for(int x = 0; x < Cell.length; x++){
 			for(int y = 0; y < Cell[x].length; y++){
 				if(!Cell[x][y].isDisable()){
 					if(counts[x][y] != MINE){
-						Cell[x][y].setText(counts[x][y] + "");
+						// if it is not a mine, shows the number of mines around it
+						Cell[x][y].setText(counts[x][y] + ""); 
+						// disable the button
 						Cell[x][y].setDisable(true);
 					}else{
-						Cell[x][y].setText("X");
-						Cell[x][y].setTextFill(Color.RED);
+						// use "X" to indicate a mine
+						Cell[x][y].setText("X"); 
+						// set the color of the mine to red
+						Cell[x][y].setTextFill(Color.RED); 
+						// disable the button
 						Cell[x][y].setDisable(true);
 					}
 				}
 			}
 		}
 	}
-	public void setMouseEvents(ActionEvent event){ // source
+	public void setMouseEvents(ActionEvent event){ 
 		for(int i = 0; i < Cell.length; i++){
 			for(int j = 0; j < Cell[i].length; j++){
 				if(event.getSource().equals(Cell[i][j])){
+					// check whether the mouse click lands on a mine
 					if(counts[i][j] == MINE){
 						Cell[i][j].setText("X");
 						Cell[i][j].setTextFill(Color.RED);
