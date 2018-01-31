@@ -54,7 +54,7 @@ public class Main extends Application {
 		
 		game2.setOnAction(new EventHandler<ActionEvent>() {
 			@Override public void handle(ActionEvent e) {
-				//ADD
+				Minesweeper minesweeper = new Minesweeper();
 			}
 		});
 		
