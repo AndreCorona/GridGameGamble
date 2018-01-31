@@ -12,14 +12,17 @@ import javafx.scene.layout.RowConstraints;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
-public class Minesweeper {
-	// initialize the rows and columns plus the width of each square
+public class Minesweeper extends Cell{
+	// initialize the rows and columns
 	private final int ROWS = 10;
 	private final int COLUMNS = 10;
+	// initialize the width of each grid
 	private final int w = 50;
+	// number of mines
+	private final int mines = 10;
 	
 	//Grid Buttons
-	Button[][] field = new Button[ROWS][COLUMNS];
+	Button[][] Cell = new Button[ROWS][COLUMNS];
 	//keep track of the mines in the grid
 	int[][] counts = new int[ROWS][COLUMNS];
 	
@@ -27,12 +30,12 @@ public class Minesweeper {
 		//GridPane lays out its children within a flexible grid of rows and columns
 		GridPane grid = new GridPane();
 		
-		for(int i = 0; i < field.length; i++){
-			for(int j = 0; j < field.length; j++){
-				field[i][j] = new Button(); //create button
-				field[i][j].setMinSize(w, w); //default size of the button
-				// field[i][j].setStyle("-fx-background-color: #00ff00");
-				grid.add(field[i][j], i, j); //add button
+		for(int i = 0; i < Cell.length; i++){
+			for(int j = 0; j < Cell.length; j++){
+				Cell[i][j] = new Button(); //create button
+				Cell[i][j].setMinSize(w, w); //default size of the button
+				// Cell[i][j].setStyle("-fx-background-color: #00ff00");
+				grid.add(Cell[i][j], i, j); //add button
 			}
 		}
 		
