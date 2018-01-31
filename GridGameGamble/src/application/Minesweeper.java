@@ -30,11 +30,12 @@ public class Minesweeper extends Cell{
 		//GridPane lays out its children within a flexible grid of rows and columns
 		GridPane grid = new GridPane();
 		
+		
 		for(int i = 0; i < Cell.length; i++){
 			for(int j = 0; j < Cell.length; j++){
 				Cell[i][j] = new Button(); //create button
 				Cell[i][j].setMinSize(w, w); //default size of the button
-				// Cell[i][j].setStyle("-fx-background-color: #00ff00");
+				Cell[i][j].setOnAction((EventHandler<ActionEvent>) this);
 				grid.add(Cell[i][j], i, j); //add button
 			}
 		}
@@ -108,7 +109,25 @@ public class Minesweeper extends Cell{
 			}
 		}
 	}
+
 	
+	EventHandler<ActionEvent> buttonHandler = new EventHandler<ActionEvent>(){ // source
+		@Override
+		public void handle(ActionEvent event){
+			for(int i = 0; i < Cell.length; i++){
+				for(int j = 0; j < Cell[i].length; j++){
+					if(event.getSource().equals(Cell[i][j])){
+						if(counts[i][j] == MINE){
+							Cell[i][j].setText("X");
+						}
+					}else{
+						Cell[i][j].setText(counts[i][j] + ""); // switch to String for the button
+						Cell[i][j].setDisable(false); // disable to click again
+					}
+				}
+			}
+		}
+	};
 	public static void main(String[] arg){
 		// empty
 	}
