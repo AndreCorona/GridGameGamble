@@ -10,26 +10,23 @@ import javafx.stage.Stage;
 public abstract class Cell {
 	
 	private final Button button = new Button();
-    private boolean mine = false;
-    private boolean hidden = true;
+    private boolean mine = true;
+    private boolean revealed = false;
 
     public Cell(){
     	button.setText(" ");
+    	this.revealed = false;
     }
 	
-    public void setMine() {
-        
+    public boolean isRevealed() {
+        return revealed;
     }
-
+    
     public boolean hasMine() {
         return mine;
     }
 
-    public void reveal() {
-        
-    }
-
-    public boolean isHidden() {
-        return hidden;
+    public void setRevealedTrue() {
+        revealed = true;	
     }
 }
