@@ -124,56 +124,64 @@ public class Minesweeper extends Cell{
 			toClear.remove(0);
 			// clear the mines
 			if(counts[x][y] == 0){
-				if(x > 0 && y > 0 && !Cell[x-1][y-1].isDisable()){ //up left
+				//top left
+				if(x > 0 && y > 0 && !Cell[x-1][y-1].isDisable()){ 
 					Cell[x-1][y-1].setText(counts[x-1][y-1] + "");
 					Cell[x-1][y-1].setDisable(true);
 					if(counts[x-1][y-1] == 0){
 						toClear.add((x-1)*100 + (y-1));
 					}
 				}
-				if(y > 0 && !Cell[x][y-1].isDisable()){ //up
+				//top
+				if(y > 0 && !Cell[x][y-1].isDisable()){ 
 					Cell[x][y-1].setText(counts[x][y-1] + "");
 					Cell[x][y-1].setDisable(true);
 					if(counts[x][y-1] == 0){
 						toClear.add(x*100 + (y-1));
 					}
 				}
-				if(x < counts.length - 1 && y > 0 && !Cell[x+1][y-1].isDisable()){ //up right
+				//top right
+				if(x < counts.length - 1 && y > 0 && !Cell[x+1][y-1].isDisable()){ 
 					Cell[x+1][y-1].setText(counts[x+1][y-1] + "");
 					Cell[x+1][y-1].setDisable(true);
 					if(counts[x+1][y-1] == 0){
 						toClear.add((x+1)*100 + (y-1));
 					}
 				}
-				if(x > 0 && !Cell[x-1][y].isDisable()){ //left
+				//left
+				if(x > 0 && !Cell[x-1][y].isDisable()){ 
 					Cell[x-1][y].setText(counts[x-1][y] + "");
 					Cell[x-1][y].setDisable(true);
 					if(counts[x-1][y] == 0){
 						toClear.add((x-1)*100 + y);
 					}
 				}
-				if(x < counts.length - 1 && !Cell[x+1][y].isDisable()){ //right
+				//right
+				if(x < counts.length - 1 && !Cell[x+1][y].isDisable()){ 
 					Cell[x+1][y].setText(counts[x+1][y] + "");
 					Cell[x+1][y].setDisable(true);
 					if(counts[x+1][y] == 0){
 						toClear.add((x+1)*100 + y);
 					}
 				}
-				if(x > 0 && y < counts.length - 1 && !Cell[x-1][y+1].isDisable()){ //bottom right
+				//bottom right
+				if(x > 0 && y < counts.length - 1 && !Cell[x-1][y+1].isDisable()){ 
 					Cell[x-1][y+1].setText(counts[x-1][y+1] + "");
 					Cell[x-1][y+1].setDisable(true);
 					if(counts[x-1][y+1] == 0){
 						toClear.add((x-1)*100 + (y+1));
 					}
 				}
-				if(y < counts.length - 1 && !Cell[x][y+1].isDisable()){ //bottom
+				//bottom
+				if(y < counts.length - 1 && !Cell[x][y+1].isDisable()){ 
 					Cell[x][y+1].setText(counts[x][y+1] + "");
 					Cell[x][y+1].setDisable(true);
 					if(counts[x][y+1] == 0){
 						toClear.add((x)*100 + (y+1));
 					}
 				}
-				if(x < counts.length - 1 && y < counts.length - 1 && !Cell[x+1][y+1].isDisable()){ //bottom right
+				//bottom right
+				if(x < counts.length - 1 && y < counts.length - 1 && !Cell[x+1][y+1].isDisable()){ 
 					Cell[x+1][y+1].setText(counts[x+1][y+1] + "");
 					Cell[x+1][y+1].setDisable(true);
 					if(counts[x+1][y+1] == 0){
@@ -187,10 +195,12 @@ public class Minesweeper extends Cell{
 		}
 
 	}
+	// check whether you win or not
 	public void isWon(){
 		boolean won = true;
 		for(int x = 0; x < Cell.length; x++){
 			for(int y = 0; y < Cell[x].length; y++){
+				// boomed
 				if(counts[x][y] == MINE && Cell[x][y].isDisabled()){
 					won = false;
 				}
@@ -198,6 +208,14 @@ public class Minesweeper extends Cell{
 		}
 		if(won){
 			// add a win label
+			Label win = new Label("Congradulation! You won");
+			win.setStyle("-fx-font: 25 Arial");
+			win.setLayoutX(20);
+			win.setLayoutY(50);
+			Scene scene2 = new Scene(win, w * ROWS, w * COLUMNS); //500*500
+			Stage stage = new Stage();
+			stage.setScene(scene2);
+			stage.show();
 		}
 	}
 
@@ -224,6 +242,7 @@ public class Minesweeper extends Cell{
 			}
 		}
 	}
+	// my event handler
 	public void setMouseEvents(ActionEvent event){ 
 		for(int i = 0; i < Cell.length; i++){
 			for(int j = 0; j < Cell[i].length; j++){
@@ -233,11 +252,15 @@ public class Minesweeper extends Cell{
 						Cell[i][j].setText("X");
 						Cell[i][j].setTextFill(Color.RED);
 						lostGame();
-					}else if(counts[i][j] == 0){
+					}
+					// check whether all of the grid does not have the mind has been revealed
+					else if(counts[i][j] == 0){
 						Cell[i][j].setText(counts[i][j] + "");
 						Cell[i][j].setDisable(true);
 						ArrayList<Integer> toClear = new ArrayList<Integer>();
+						// set up all the mind to clear
 						toClear.add(i*100+j);
+						// use recursion to clear the blank
 						clear(toClear);
 						isWon();
 					}else{
