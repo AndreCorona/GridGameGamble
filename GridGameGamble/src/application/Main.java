@@ -12,8 +12,8 @@ import javafx.scene.layout.Pane;
 
 /**
  * Grid Game Gamble!
- * - Minesweeper
- * - TicTacToe
+ * - Minesweeper (Patrick)
+ * - TicTacToe (Andre)
  *
  * Created by:
  * 	Andre Corona and Patrick Su
@@ -66,7 +66,7 @@ public class Main extends Application {
 			}
 		});
 		
-
+		
 	}
 		
 	
