@@ -61,7 +61,7 @@ public class Main extends Application {
 		});
 		
 		game2.setOnAction(new EventHandler<ActionEvent>() {
-			@Override public void handle(ActionEvent e) {
+			@Override public void handle(ActionEvent e) {	
 				Minesweeper minesweeper = new Minesweeper();
 			}
 		});
