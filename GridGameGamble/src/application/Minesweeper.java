@@ -30,7 +30,7 @@ public class Minesweeper extends Cell{
 		//GridPane lays out its children within a flexible grid of rows and columns
 		GridPane grid = new GridPane();
 
-
+		// initialize the buttons
 		for(int i = 0; i < Cell.length; i++){
 			for(int j = 0; j < Cell.length; j++){
 				Cell[i][j] = new Button(); //create button
@@ -44,7 +44,8 @@ public class Minesweeper extends Cell{
 				grid.add(Cell[i][j], i, j); //add button
 			}
 		}
-
+		
+		// randomly set up the mines
 		createMines();
 
 		// set up the scene and the stage
@@ -200,22 +201,24 @@ public class Minesweeper extends Cell{
 		boolean won = true;
 		for(int x = 0; x < Cell.length; x++){
 			for(int y = 0; y < Cell[x].length; y++){
-				// boomed
-				if(counts[x][y] == MINE && Cell[x][y].isDisabled()){
+				// if there is still cell with no mines left, game continues
+				if(counts[x][y] != MINE && !Cell[x][y].isDisabled()){
 					won = false;
 				}
 			}
 		}
 		if(won){
-			// add a win label
-			Label win = new Label("Congradulation! You won");
-			win.setStyle("-fx-font: 25 Arial");
-			win.setLayoutX(20);
-			win.setLayoutY(50);
-			Scene scene2 = new Scene(win, w * ROWS, w * COLUMNS); //500*500
-			Stage stage = new Stage();
-			stage.setScene(scene2);
-			stage.show();
+			for(int x = 0; x < Cell.length; x++){
+				for(int y = 0; y < Cell[x].length; y++){
+					// disable the button since the game ends
+					Cell[x][y].setDisable(true);
+					// color all the mine
+					if(counts[x][y] == MINE){
+						Cell[x][y].setStyle("-fx-background-color: #00ff00; ");
+					}
+				}
+			}
+			System.out.println("you win");
 		}
 	}
 
@@ -233,14 +236,17 @@ public class Minesweeper extends Cell{
 					}else{
 						// use "X" to indicate a mine
 						Cell[x][y].setText("X"); 
-						// set the color of the mine to red
-						Cell[x][y].setTextFill(Color.RED); 
+						// set the color of the mine to black
+						Cell[x][y].setTextFill(Color.BLACK);
+						// set the background of the button be red
+						Cell[x][y].setStyle("-fx-background-color: #ff0000; ");
 						// disable the button
 						Cell[x][y].setDisable(true);
 					}
 				}
 			}
 		}
+		System.out.println("You lose");
 	}
 	// my event handler
 	public void setMouseEvents(ActionEvent event){ 
@@ -249,8 +255,12 @@ public class Minesweeper extends Cell{
 				if(event.getSource().equals(Cell[i][j])){
 					// check whether the mouse click lands on a mine
 					if(counts[i][j] == MINE){
-						Cell[i][j].setText("X");
-						Cell[i][j].setTextFill(Color.RED);
+						// use "X" to indicate a mine
+						Cell[i][j].setText("X"); 
+						// set the color of the mine to black
+						Cell[i][j].setTextFill(Color.BLACK);
+						// set the background of the button be red
+						Cell[i][j].setStyle("-fx-background-color: #ff0000; ");
 						lostGame();
 					}
 					// check whether all of the grid does not have the mind has been revealed
