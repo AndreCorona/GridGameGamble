@@ -8,7 +8,7 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 public abstract class Cell {
-
+	// an abstract class for each cell
 	private final Button button = new Button();
 	private boolean mine = true;
 	private boolean revealed = false;
