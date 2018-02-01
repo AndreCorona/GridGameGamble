@@ -48,7 +48,7 @@ public class Main extends Application {
 
 		game1.setOnAction(new EventHandler<ActionEvent>() {
 			@Override public void handle(ActionEvent e) {
-				//TicTacToe tictactoe = new TicTacToe();
+				TicTacToe tictactoe = new TicTacToe();
 			}
 		});
 		
