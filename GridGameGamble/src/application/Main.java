@@ -1,5 +1,5 @@
 package application;
-	
+
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -10,6 +10,14 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 
+/**
+ * Grid Game Gamble!
+ * - Minesweeper
+ * - TicTacToe
+ *
+ * Created by:
+ * 	Andre Corona and Patrick Su
+ */
 
 public class Main extends Application {
 	@Override
