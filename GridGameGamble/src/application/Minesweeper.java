@@ -249,7 +249,7 @@ public class Minesweeper extends Cell{
 		System.out.println("You lose");
 	}
 	// my event handler
-	public void setMouseEvents(ActionEvent event){ 
+	public void setMouseEvents(ActionEvent event){	
 		for(int i = 0; i < Cell.length; i++){
 			for(int j = 0; j < Cell[i].length; j++){
 				if(event.getSource().equals(Cell[i][j])){
